@@ -1,0 +1,32 @@
+<div (focusout)="changeTitle()" class="modal fade" id="exampleModal" tabindex="-1"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content rounded-5 p-5">
+      <div class="modal-header">
+        <h5 class="modal-title fs-2 fw-bold" id="exampleModalLabel">Create {{customTitle}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form (click)="clear()" #myForm="ngForm" id="formAdd" class="was-validated">
+          <div *ngFor="let parameter of parameters; let i=index" class="mb-3 col">
+            <label for="{{properties[i]}}" class="form-label">{{parameter}}</label>
+            <input type="text" class="form-control rounded-pill" id="{{properties[i]}}" [ngModel]="properties[i]" name="{{properties[i]}}" required>
+            <div class="form-text">Type the {{parameter}} please.</div>
+          </div>
+          <div *ngIf="dropdownList.length>0 && dropdownVariable!=''" class="mb-3 col d-flex flex-column">
+            <label for="{{dropdownVariable}}" class="form-label">{{dropdownVariable}}</label>
+            <select name="{{dropdownVariable.toLowerCase()}}" class="rounded-pill p-2" [ngModel]="dropdownVariable.toLowerCase()" required>
+              <option *ngFor="let role of dropdownList" [value]="role">{{ role }}</option>
+            </select>
+            <div class="form-text">Choose the {{dropdownVariable}} please.</div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary rounded-pill p-2 fw-bold" data-bs-dismiss="modal">Close</button>
+        <button (click)="onSubmit()" type="button" data-bs-dismiss="modal" class="submit btn btn-primary rounded-pill p-2 fw-bold">Save changes
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

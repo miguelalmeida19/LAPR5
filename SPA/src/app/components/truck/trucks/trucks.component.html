@@ -1,0 +1,22 @@
+<header-add customTitle="Truck"
+            customDescription="Here are listed all the Trucks"
+            addWord="Trucks"
+            color="primary">
+</header-add>
+
+<app-messages></app-messages>
+
+<table-component color="primary"
+                 object="truck"
+                 [callbackFunction]="changeActivate"
+                 [listOfObjects]="trucks"
+                 [parameters]=labels>
+</table-component>
+
+<add-dialog customTitle="Truck"
+            color="primary"
+            mainPageTitle="Trucks"
+            [callbackFunction]="add"
+            [parameters]=labels.slice(0,labels.length-1)
+            [properties]=props
+></add-dialog>

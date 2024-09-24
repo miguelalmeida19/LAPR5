@@ -1,0 +1,24 @@
+<header-add customTitle="User"
+            customDescription="Here are listed all the Users"
+            addWord="Users"
+            color="orange">
+</header-add>
+
+<app-messages></app-messages>
+
+<table-component color="orange"
+                 object="user"
+                 [cancelable]="true"
+                 [listOfObjects]="users"
+                 [parameters]=labels>
+</table-component>
+
+<add-dialog customTitle="User"
+            color="orange"
+            mainPageTitle="Users"
+            dropdownVariable="Role"
+            [dropdownList]="roles"
+            [callbackFunction]="add"
+            [parameters]=labels.slice(0,labels.length-1)
+            [properties]=props
+></add-dialog>

@@ -1,0 +1,74 @@
+pipelines:
+  default:
+      - step:
+          image: mcr.microsoft.com/dotnet/sdk:5.0
+          name: 'Build and Test Warehouse Management Module'
+          caches:
+            - dotnetcore
+          script:
+            - cd WM
+            - REPORTS_PATH=./test-reports/build_${BITBUCKET_BUILD_NUMBER}
+            - dotnet restore WM.sln
+            - dotnet build WM.sln --no-restore --configuration Release
+            - dotnet test WM.sln --no-build --configuration Release --test-adapter-path:.
+      - step:
+          image: mcr.microsoft.com/dotnet/sdk:5.0
+          name: 'Publish .NET Module into single file'
+          caches:
+            - dotnetcore
+          script:
+            - cd WM
+            - dotnet publish -o out
+          artifacts:
+            - WM/out/EletricGo.dll
+      - step:
+          image: mcr.microsoft.com/dotnet/sdk:5.0
+          name: 'Deploy Warehouse Management to Linux VM'
+          caches:
+            - dotnetcore
+          script:
+            - cd WM
+            - pipe: atlassian/sftp-deploy:0.5.11
+              variables:
+                USER: 'root'
+                SERVER: 'vsgate-ssh.dei.isep.ipp.pt'
+                REMOTE_PATH: '/root/publish'
+                LOCAL_PATH: 'out/EletricGo.dll'
+                PASSWORD: $PASSWORD
+                EXTRA_ARGS: '-oPort=10614'
+      - step:
+          image: node:16
+          name: 'Build and Test Logistics Module'
+          caches:
+            - node
+          script:
+            - cd LOGI
+            - npm install
+            - npm run test
+      - step:
+          image: zenika/alpine-chrome:with-node
+          name: 'Build and Test SPA Module'
+          caches:
+            - node
+          script:
+            - cd SPA
+            - npm install --quiet
+            - npm run build --progress=false
+            - npm run test:ci
+          artifacts:
+            - SPA/dist/**
+      - step:
+          image: zenika/alpine-chrome:with-node
+          name: 'Deploy SPA Module to Linux VM'
+          caches:
+            - node
+          script:
+            - cd SPA
+            - pipe: atlassian/sftp-deploy:0.5.11
+              variables:
+                USER: 'root'
+                SERVER: 'vsgate-ssh.dei.isep.ipp.pt'
+                REMOTE_PATH: '/srv/spa'
+                LOCAL_PATH: 'dist/**'
+                PASSWORD: $PASSWORD
+                EXTRA_ARGS: '-oPort=10614'

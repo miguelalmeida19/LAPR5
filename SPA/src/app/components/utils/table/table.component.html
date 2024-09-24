@@ -1,0 +1,35 @@
+<div class="container mt-5 table table-striped">
+
+  <div class="d-flex flex-row">
+    <search color="{{color}}"
+            [callbackFunction]="searchFunction"
+            (outputList)="GetChildData($event)">
+    </search>
+    <ng-content select="[slot=start]"></ng-content>
+  </div>
+
+  <div class="text-center align-items-center justify-content-center bg-dark p-3 text-white rounded-pill fw-bold d-flex">
+    <div *ngFor="let parameter of parameters" class="col">{{parameter}}</div>
+  </div>
+
+  <div id="list" [ngClass]="'btn-outline-' + color" *ngFor="let obj of listOfObjects"
+       class="tab-row button btn text-center align-items-center justify-content-center p-3 rounded-pill d-flex" (click)="changeUserEmail(obj)">
+    <div [attr.data-bs-toggle]="cancelable ? 'modal' : null" data-bs-target="#cancelModalOfUser"
+         [ngClass]="{'fw-bold': i === 0}" class="col"
+         *ngFor="let item of obj | keyvalue: unsorted; let i = index;">
+      <div *ngIf="parameters[i]=='Active'"
+           class="d-flex align-items-center justify-content-center form-check form-switch">
+        <input (change)="changeActivate(obj)" class="form-check-input" type="checkbox" role="switch"
+               [checked]="item.value==true">
+      </div>
+      <span (click)="goToDetail(obj)"
+            *ngIf="parameters[i]!='Active'">{{item.value}}</span>
+    </div>
+  </div>
+
+  <ng-content select="[slot=end]"></ng-content>
+
+</div>
+
+<cancel-dialog modalId="cancelModalOfUser" [redirect]="false" [userEmail]="userEmail"
+               mainPageTitle="Canceling Account"></cancel-dialog>

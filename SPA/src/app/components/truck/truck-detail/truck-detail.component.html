@@ -1,0 +1,25 @@
+<details-component *ngIf="truck" customTitle="Truck from ID {{truck.truckId | uppercase}}Details">
+  <input-form variable="{{props[0]}}" label="{{labels[0]}}" tip="{{labels[0]}} is not editable!">
+    <input readonly [(ngModel)]="truck.truckId" placeholder="{{truck.truckId.toString()}}" class="form-control rounded-pill">
+  </input-form>
+  <input-form variable="{{props[1]}}" label="{{labels[1]}}" tip="{{labels[1]}} should be greater than 0!">
+    <input [(ngModel)]="truck.tare" placeholder="{{truck.tare.toString()}}" class="form-control rounded-pill">
+  </input-form>
+  <input-form variable="{{props[2]}}" label="{{labels[2]}}" tip="{{labels[2]}} should be greater than 0!!">
+    <input [(ngModel)]="truck.capacity" placeholder="{{truck.capacity.toString()}}" class="form-control rounded-pill">
+  </input-form>
+  <input-form variable="{{props[3]}}" label="{{labels[3]}}" tip="{{labels[3]}} should be greater than 0!">
+    <input [(ngModel)]="truck.batteryCharge" placeholder="{{truck.batteryCharge.toString()}}" class="form-control rounded-pill">
+  </input-form>
+  <input-form variable="{{props[4]}}" label="{{labels[4]}}" tip="{{labels[4]}} should be greater than 0!">
+    <input [(ngModel)]="truck.autonomy" placeholder="{{truck.autonomy.toString()}}" class="form-control rounded-pill">
+  </input-form>
+  <input-form variable="{{props[5]}}" label="{{labels[5]}}" tip="{{labels[5]}} should be greater than 0!">
+    <input [(ngModel)]="truck.rechargeBattery" placeholder="{{truck.rechargeBattery.toString()}}" class="form-control rounded-pill">
+  </input-form>
+  <div class="d-flex">
+    <button type="button" class="me-3 btn btn-secondary rounded-pill p-2 fw-bold" (click)="goBack()">Go Back</button>
+    <button type="button" class="btn btn-outline-warning rounded-pill p-2 fw-bold" (click)="save()">Save changes
+    </button>
+  </div>
+</details-component>

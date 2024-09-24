@@ -1,0 +1,3110 @@
+{
+	"info": {
+		"_postman_id": "4988e8f8-99b2-4bc1-a530-19a4387b50fc",
+		"name": "INTEGRATION TESTS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17826114"
+	},
+	"item": [
+		{
+			"name": "Paths",
+			"item": [
+				{
+					"name": "List all Paths",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is not an empty array\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.length).to.be.above(0);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "file",
+							"file": {}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/api/paths/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"paths",
+								""
+							],
+							"query": [
+								{
+									"key": "departureWarehouse",
+									"value": "188",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create the first Path",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body returns the correct departureWarehouse\", function () {\r",
+									"    pm.expect(responseJson.departureWarehouse).to.eql(\"012\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body returns the correct arrivalWarehouse\", function () {\r",
+									"    pm.expect(responseJson.arrivalWarehouse).to.eql(\"014\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body returns the correct distance\", function () {\r",
+									"    pm.expect(responseJson.distance).to.eql(12);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body returns the correct duration\", function () {\r",
+									"    pm.expect(responseJson.duration).to.eql(13);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body returns the correct consumedEnergy\", function () {\r",
+									"    pm.expect(responseJson.consumedEnergy).to.eql(14);\r",
+									"});\r",
+									"\r",
+									"const postResponseBody = pm.response.json();\r",
+									"pm.environment.set(\"pathId\", postResponseBody.id);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"departureWarehouse\": \"012\",\r\n  \"arrivalWarehouse\": \"014\",\r\n  \"distance\": 12,\r\n  \"duration\": 13,\r\n  \"consumedEnergy\": 14\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/api/paths/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"paths",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get the path that was created",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body returns the correct departureWarehouse\", function () {\r",
+									"    pm.expect(responseJson.departureWarehouse).to.eql(\"012\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body returns the correct arrivalWarehouse\", function () {\r",
+									"    pm.expect(responseJson.arrivalWarehouse).to.eql(\"014\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body returns the correct distance\", function () {\r",
+									"    pm.expect(responseJson.distance).to.eql(12);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body returns the correct duration\", function () {\r",
+									"    pm.expect(responseJson.duration).to.eql(13);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body returns the correct consumedEnergy\", function () {\r",
+									"    pm.expect(responseJson.consumedEnergy).to.eql(14);\r",
+									"});\r",
+									"\r",
+									"const postResponseBody = pm.response.json();\r",
+									"pm.environment.set(\"pathId\", postResponseBody.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "file",
+							"file": {}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/api/paths/{{pathId}}",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"paths",
+								"{{pathId}}"
+							],
+							"query": [
+								{
+									"key": "departureWarehouse",
+									"value": "188",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit a Path",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body returns the correct departureWarehouse\", function () {\r",
+									"    pm.expect(responseJson.departureWarehouse).to.eql(\"012\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body returns the correct arrivalWarehouse\", function () {\r",
+									"    pm.expect(responseJson.arrivalWarehouse).to.eql(\"014\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body returns the correct distance\", function () {\r",
+									"    pm.expect(responseJson.distance).to.eql(15);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body returns the correct duration\", function () {\r",
+									"    pm.expect(responseJson.duration).to.eql(20);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body returns the correct consumedEnergy\", function () {\r",
+									"    pm.expect(responseJson.consumedEnergy).to.eql(12);\r",
+									"});\r",
+									"\r",
+									"const postResponseBody = pm.response.json();\r",
+									"pm.environment.set(\"pathId\", postResponseBody.id);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"{{pathId}}\",\r\n    \"departureWarehouse\": \"012\",\r\n    \"arrivalWarehouse\": \"014\",\r\n    \"distance\": 15,\r\n    \"duration\": 20,\r\n    \"consumedEnergy\": 12\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/api/paths/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"paths",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get the path that was edited",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body returns the correct departureWarehouse\", function () {\r",
+									"    pm.expect(responseJson.departureWarehouse).to.eql(\"012\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body returns the correct arrivalWarehouse\", function () {\r",
+									"    pm.expect(responseJson.arrivalWarehouse).to.eql(\"014\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body returns the correct distance\", function () {\r",
+									"    pm.expect(responseJson.distance).to.eql(15);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body returns the correct duration\", function () {\r",
+									"    pm.expect(responseJson.duration).to.eql(20);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Body returns the correct consumedEnergy\", function () {\r",
+									"    pm.expect(responseJson.consumedEnergy).to.eql(12);\r",
+									"});\r",
+									"\r",
+									"const postResponseBody = pm.response.json();\r",
+									"pm.environment.set(\"pathId\", postResponseBody.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "file",
+							"file": {}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/api/paths/{{pathId}}",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"paths",
+								"{{pathId}}"
+							],
+							"query": [
+								{
+									"key": "departureWarehouse",
+									"value": "188",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Paginate Paths",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is valid\", function () {\r",
+									"    pm.expect(pm.response.json()).to.have.all.keys(\"paths\", \"pages\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Paths array has 4 elements\", function () {\r",
+									"    pm.expect(pm.response.json().paths).to.have.lengthOf(4);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Pages value is correct\", function () {\r",
+									"    pm.expect(pm.response.json().pages).to.eql(2);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:3000/api/paths/n/4/p/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"paths",
+								"n",
+								"4",
+								"p",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Path by Departure Warehouse",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is valid\", function () {\r",
+									"    pm.expect(pm.response.json()).to.be.an(\"array\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Paths array has 2 elements\", function () {\r",
+									"    pm.expect(pm.response.json()).to.have.lengthOf(2);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Paths have correct departureWarehouse value\", function () {\r",
+									"    pm.response.json().forEach(function (path) {\r",
+									"        pm.expect(path.departureWarehouse).to.eql(\"001\");\r",
+									"    });\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:3000/api/paths/departureWarehouse/001",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"paths",
+								"departureWarehouse",
+								"001"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Path by Arrival Warehouse",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is valid\", function () {\r",
+									"    pm.expect(pm.response.json()).to.be.an(\"array\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Paths array has 2 elements\", function () {\r",
+									"    pm.expect(pm.response.json()).to.have.lengthOf(2);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Paths have correct arrivalWarehouse value\", function () {\r",
+									"    pm.response.json().forEach(function (path) {\r",
+									"        pm.expect(path.arrivalWarehouse).to.eql(\"003\");\r",
+									"    });\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:3000/api/paths/arrivalWarehouse/003",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"paths",
+								"arrivalWarehouse",
+								"003"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Path by Warehouses",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is valid\", function () {\r",
+									"    pm.expect(pm.response.json()).to.be.an(\"array\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Paths array has 1 element\", function () {\r",
+									"    pm.expect(pm.response.json()).to.have.lengthOf(1);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Path has correct departureWarehouse value\", function () {\r",
+									"    pm.expect(pm.response.json()[0].departureWarehouse).to.eql(\"003\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Path has correct arrivalWarehouse value\", function () {\r",
+									"    pm.expect(pm.response.json()[0].arrivalWarehouse).to.eql(\"002\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:3000/api/paths/departureWarehouse/003/arrivalWarehouse/002",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"paths",
+								"departureWarehouse",
+								"003",
+								"arrivalWarehouse",
+								"002"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Trucks",
+			"item": [
+				{
+					"name": "List all Trucks",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is not an empty array\", function () {\r",
+									"    let responseBody = pm.response.json();\r",
+									"    pm.expect(responseBody.length).to.be.above(0);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "file",
+							"file": {}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/api/trucks/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"trucks",
+								""
+							],
+							"query": [
+								{
+									"key": "departureWarehouse",
+									"value": "188",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create the first Truck",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is valid\", function () {\r",
+									"    pm.expect(responseJson).to.have.all.keys(\r",
+									"        \"truckId\",\r",
+									"        \"tare\",\r",
+									"        \"capacity\",\r",
+									"        \"batteryCharge\",\r",
+									"        \"autonomy\",\r",
+									"        \"rechargeBattery\",\r",
+									"        \"active\"\r",
+									"    );\r",
+									"});\r",
+									"\r",
+									"pm.test(\"TruckId value is correct\", function () {\r",
+									"    pm.expect(responseJson.truckId).to.eql(\"MN-12-PT\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Tare value is correct\", function () {\r",
+									"    pm.expect(responseJson.tare).to.eql(124);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Capacity value is correct\", function () {\r",
+									"    pm.expect(responseJson.capacity).to.eql(345);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"BatteryCharge value is correct\", function () {\r",
+									"    pm.expect(responseJson.batteryCharge).to.eql(1.4);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Autonomy value is correct\", function () {\r",
+									"    pm.expect(responseJson.autonomy).to.eql(20.5);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"RechargeBattery value is correct\", function () {\r",
+									"    pm.expect(responseJson.rechargeBattery).to.eql(123);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Active value is correct\", function () {\r",
+									"    pm.expect(responseJson.active).to.be.true;\r",
+									"});\r",
+									"\r",
+									"pm.environment.set(\"truckId\", responseJson.truckId);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"truckId\": \"MN-12-PT\",\r\n    \"tare\": 124,\r\n    \"capacity\": 345,\r\n    \"batteryCharge\": 1.4,\r\n    \"autonomy\": 20.5,\r\n    \"rechargeBattery\": 123\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/api/trucks/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"trucks",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get the truck that was created",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is valid\", function () {\r",
+									"    pm.expect(responseJson).to.have.all.keys(\r",
+									"        \"truckId\",\r",
+									"        \"tare\",\r",
+									"        \"capacity\",\r",
+									"        \"batteryCharge\",\r",
+									"        \"autonomy\",\r",
+									"        \"rechargeBattery\",\r",
+									"        \"active\"\r",
+									"    );\r",
+									"});\r",
+									"\r",
+									"pm.test(\"TruckId value is correct\", function () {\r",
+									"    pm.expect(responseJson.truckId).to.eql(\"MN-12-PT\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Tare value is correct\", function () {\r",
+									"    pm.expect(responseJson.tare).to.eql(124);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Capacity value is correct\", function () {\r",
+									"    pm.expect(responseJson.capacity).to.eql(345);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"BatteryCharge value is correct\", function () {\r",
+									"    pm.expect(responseJson.batteryCharge).to.eql(1.4);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Autonomy value is correct\", function () {\r",
+									"    pm.expect(responseJson.autonomy).to.eql(20.5);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"RechargeBattery value is correct\", function () {\r",
+									"    pm.expect(responseJson.rechargeBattery).to.eql(123);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Active value is correct\", function () {\r",
+									"    pm.expect(responseJson.active).to.be.true;\r",
+									"});\r",
+									"\r",
+									"pm.environment.set(\"truckId\", responseJson.truckId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "file",
+							"file": {}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/api/trucks/{{truckId}}",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"trucks",
+								"{{truckId}}"
+							],
+							"query": [
+								{
+									"key": "departureWarehouse",
+									"value": "188",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit a Truck",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is valid\", function () {\r",
+									"    pm.expect(responseJson).to.have.all.keys(\r",
+									"        \"truckId\",\r",
+									"        \"tare\",\r",
+									"        \"capacity\",\r",
+									"        \"batteryCharge\",\r",
+									"        \"autonomy\",\r",
+									"        \"rechargeBattery\",\r",
+									"        \"active\"\r",
+									"    );\r",
+									"});\r",
+									"\r",
+									"pm.test(\"TruckId value is correct\", function () {\r",
+									"    pm.expect(responseJson.truckId).to.eql(\"MN-12-PT\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Tare value is correct\", function () {\r",
+									"    pm.expect(responseJson.tare).to.eql(124);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Capacity value is correct\", function () {\r",
+									"    pm.expect(responseJson.capacity).to.eql(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"BatteryCharge value is correct\", function () {\r",
+									"    pm.expect(responseJson.batteryCharge).to.eql(1.4);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Autonomy value is correct\", function () {\r",
+									"    pm.expect(responseJson.autonomy).to.eql(20);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"RechargeBattery value is correct\", function () {\r",
+									"    pm.expect(responseJson.rechargeBattery).to.eql(123);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Active value is correct\", function () {\r",
+									"    pm.expect(responseJson.active).to.be.true;\r",
+									"});\r",
+									"\r",
+									"pm.environment.set(\"truckId\", responseJson.truckId);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"truckId\": \"{{truckId}}\",\r\n    \"tare\": 124,\r\n    \"capacity\": 200,\r\n    \"batteryCharge\": 1.4,\r\n    \"autonomy\": 20,\r\n    \"rechargeBattery\": 123\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/api/trucks/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"trucks",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get the truck that was edited",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is valid\", function () {\r",
+									"    pm.expect(responseJson).to.have.all.keys(\r",
+									"        \"truckId\",\r",
+									"        \"tare\",\r",
+									"        \"capacity\",\r",
+									"        \"batteryCharge\",\r",
+									"        \"autonomy\",\r",
+									"        \"rechargeBattery\",\r",
+									"        \"active\"\r",
+									"    );\r",
+									"});\r",
+									"\r",
+									"pm.test(\"TruckId value is correct\", function () {\r",
+									"    pm.expect(responseJson.truckId).to.eql(\"MN-12-PT\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Tare value is correct\", function () {\r",
+									"    pm.expect(responseJson.tare).to.eql(124);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Capacity value is correct\", function () {\r",
+									"    pm.expect(responseJson.capacity).to.eql(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"BatteryCharge value is correct\", function () {\r",
+									"    pm.expect(responseJson.batteryCharge).to.eql(1.4);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Autonomy value is correct\", function () {\r",
+									"    pm.expect(responseJson.autonomy).to.eql(20);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"RechargeBattery value is correct\", function () {\r",
+									"    pm.expect(responseJson.rechargeBattery).to.eql(123);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Active value is correct\", function () {\r",
+									"    pm.expect(responseJson.active).to.be.true;\r",
+									"});\r",
+									"\r",
+									"pm.environment.set(\"truckId\", responseJson.truckId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "file",
+							"file": {}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/api/trucks/{{truckId}}",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"trucks",
+								"{{truckId}}"
+							],
+							"query": [
+								{
+									"key": "departureWarehouse",
+									"value": "188",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deactivate Truck",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response body is valid\", function () {\r",
+									"    pm.expect(responseJson).to.have.all.keys(\r",
+									"        \"truckId\",\r",
+									"        \"tare\",\r",
+									"        \"capacity\",\r",
+									"        \"batteryCharge\",\r",
+									"        \"autonomy\",\r",
+									"        \"rechargeBattery\",\r",
+									"        \"active\"\r",
+									"    );\r",
+									"});\r",
+									"\r",
+									"pm.test(\"TruckId value is correct\", function () {\r",
+									"    pm.expect(responseJson.truckId).to.eql(\"MN-12-PT\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Tare value is correct\", function () {\r",
+									"    pm.expect(responseJson.tare).to.eql(124);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Capacity value is correct\", function () {\r",
+									"    pm.expect(responseJson.capacity).to.eql(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"BatteryCharge value is correct\", function () {\r",
+									"    pm.expect(responseJson.batteryCharge).to.eql(1.4);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Autonomy value is correct\", function () {\r",
+									"    pm.expect(responseJson.autonomy).to.eql(20);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"RechargeBattery value is correct\", function () {\r",
+									"    pm.expect(responseJson.rechargeBattery).to.eql(123);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Active value is correct\", function () {\r",
+									"    pm.expect(responseJson.active).to.be.false;\r",
+									"});\r",
+									"\r",
+									"pm.environment.set(\"truckId\", responseJson.truckId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"truckId\":\"{{truckId}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/api/trucks/deactivate",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"trucks",
+								"deactivate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get the truck that was deactivated",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is valid\", function () {\r",
+									"    pm.expect(responseJson).to.have.all.keys(\r",
+									"        \"truckId\",\r",
+									"        \"tare\",\r",
+									"        \"capacity\",\r",
+									"        \"batteryCharge\",\r",
+									"        \"autonomy\",\r",
+									"        \"rechargeBattery\",\r",
+									"        \"active\"\r",
+									"    );\r",
+									"});\r",
+									"\r",
+									"pm.test(\"TruckId value is correct\", function () {\r",
+									"    pm.expect(responseJson.truckId).to.eql(\"MN-12-PT\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Tare value is correct\", function () {\r",
+									"    pm.expect(responseJson.tare).to.eql(124);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Capacity value is correct\", function () {\r",
+									"    pm.expect(responseJson.capacity).to.eql(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"BatteryCharge value is correct\", function () {\r",
+									"    pm.expect(responseJson.batteryCharge).to.eql(1.4);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Autonomy value is correct\", function () {\r",
+									"    pm.expect(responseJson.autonomy).to.eql(20);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"RechargeBattery value is correct\", function () {\r",
+									"    pm.expect(responseJson.rechargeBattery).to.eql(123);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Active value is correct\", function () {\r",
+									"    pm.expect(responseJson.active).to.be.false;\r",
+									"});\r",
+									"\r",
+									"pm.environment.set(\"truckId\", responseJson.truckId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "file",
+							"file": {}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/api/trucks/{{truckId}}",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"trucks",
+								"{{truckId}}"
+							],
+							"query": [
+								{
+									"key": "departureWarehouse",
+									"value": "188",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Activate Truck",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response body is valid\", function () {\r",
+									"    pm.expect(responseJson).to.have.all.keys(\r",
+									"        \"truckId\",\r",
+									"        \"tare\",\r",
+									"        \"capacity\",\r",
+									"        \"batteryCharge\",\r",
+									"        \"autonomy\",\r",
+									"        \"rechargeBattery\",\r",
+									"        \"active\"\r",
+									"    );\r",
+									"});\r",
+									"\r",
+									"pm.test(\"TruckId value is correct\", function () {\r",
+									"    pm.expect(responseJson.truckId).to.eql(\"MN-12-PT\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Tare value is correct\", function () {\r",
+									"    pm.expect(responseJson.tare).to.eql(124);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Capacity value is correct\", function () {\r",
+									"    pm.expect(responseJson.capacity).to.eql(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"BatteryCharge value is correct\", function () {\r",
+									"    pm.expect(responseJson.batteryCharge).to.eql(1.4);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Autonomy value is correct\", function () {\r",
+									"    pm.expect(responseJson.autonomy).to.eql(20);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"RechargeBattery value is correct\", function () {\r",
+									"    pm.expect(responseJson.rechargeBattery).to.eql(123);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Active value is correct\", function () {\r",
+									"    pm.expect(responseJson.active).to.be.true;\r",
+									"});\r",
+									"\r",
+									"pm.environment.set(\"truckId\", responseJson.truckId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"truckId\":\"{{truckId}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/api/trucks/activate",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"trucks",
+								"activate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get the truck that was activated",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response body is valid\", function () {\r",
+									"    pm.expect(responseJson).to.have.all.keys(\r",
+									"        \"truckId\",\r",
+									"        \"tare\",\r",
+									"        \"capacity\",\r",
+									"        \"batteryCharge\",\r",
+									"        \"autonomy\",\r",
+									"        \"rechargeBattery\",\r",
+									"        \"active\"\r",
+									"    );\r",
+									"});\r",
+									"\r",
+									"pm.test(\"TruckId value is correct\", function () {\r",
+									"    pm.expect(responseJson.truckId).to.eql(\"MN-12-PT\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Tare value is correct\", function () {\r",
+									"    pm.expect(responseJson.tare).to.eql(124);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Capacity value is correct\", function () {\r",
+									"    pm.expect(responseJson.capacity).to.eql(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"BatteryCharge value is correct\", function () {\r",
+									"    pm.expect(responseJson.batteryCharge).to.eql(1.4);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Autonomy value is correct\", function () {\r",
+									"    pm.expect(responseJson.autonomy).to.eql(20);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"RechargeBattery value is correct\", function () {\r",
+									"    pm.expect(responseJson.rechargeBattery).to.eql(123);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Active value is correct\", function () {\r",
+									"    pm.expect(responseJson.active).to.be.true;\r",
+									"});\r",
+									"\r",
+									"pm.environment.set(\"truckId\", responseJson.truckId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "file",
+							"file": {}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/api/trucks/{{truckId}}",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"trucks",
+								"{{truckId}}"
+							],
+							"query": [
+								{
+									"key": "departureWarehouse",
+									"value": "188",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Warehouses",
+			"item": [
+				{
+					"name": "List all Warehouses",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is an array\", function () {\r",
+									"    pm.expect(responseJson).to.be.an(\"array\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Array is not empty\", function () {\r",
+									"    pm.expect(responseJson).to.have.length.above(0);\r",
+									"});\r",
+									"\r",
+									"responseJson.forEach(function (warehouse) {\r",
+									"    pm.test(\"Warehouse object has the correct structure\", function () {\r",
+									"        pm.expect(warehouse).to.have.all.keys(\r",
+									"            \"id\",\r",
+									"            \"designation\",\r",
+									"            \"street\",\r",
+									"            \"postalCode\",\r",
+									"            \"location\",\r",
+									"            \"latitude\",\r",
+									"            \"longitude\",\r",
+									"            \"active\"\r",
+									"        );\r",
+									"    });\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "file",
+							"file": {}
+						},
+						"url": {
+							"raw": "http://vs614.dei.isep.ipp.pt/wm/api/warehouse/",
+							"protocol": "http",
+							"host": [
+								"vs614",
+								"dei",
+								"isep",
+								"ipp",
+								"pt"
+							],
+							"path": [
+								"wm",
+								"api",
+								"warehouse",
+								""
+							],
+							"query": [
+								{
+									"key": "departureWarehouse",
+									"value": "188",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create the first Warehouse",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is valid\", function () {\r",
+									"    pm.expect(responseJson).to.have.all.keys(\r",
+									"        \"id\",\r",
+									"        \"designation\",\r",
+									"        \"street\",\r",
+									"        \"postalCode\",\r",
+									"        \"location\",\r",
+									"        \"latitude\",\r",
+									"        \"longitude\",\r",
+									"        \"active\"\r",
+									"    );\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Id value is correct\", function () {\r",
+									"    pm.expect(responseJson.id).to.eql(\"188\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Designation value is correct\", function () {\r",
+									"    pm.expect(responseJson.designation).to.eql(\"WM03\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Street value is correct\", function () {\r",
+									"    pm.expect(responseJson.street).to.eql(\"Rua do Sergio Conceicao\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"PostalCode value is correct\", function () {\r",
+									"    pm.expect(responseJson.postalCode).to.eql(\"4713-145\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Location value is correct\", function () {\r",
+									"    pm.expect(responseJson.location).to.eql(\"Braga\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Latitude value is correct\", function () {\r",
+									"    pm.expect(responseJson.latitude).to.eql(11.5);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Longitude value is correct\", function () {\r",
+									"    pm.expect(responseJson.longitude).to.eql(5.6);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Active value is correct\", function () {\r",
+									"    pm.expect(responseJson.active).to.eql(true);\r",
+									"});\r",
+									"\r",
+									"pm.environment.set(\"warehouseId\", responseJson.id);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"188\",\r\n    \"designation\": \"WM03\",\r\n    \"street\": \"Rua do Sergio Conceicao\",\r\n    \"postalCode\": \"4713-145\",\r\n    \"location\": \"Braga\",\r\n    \"latitude\": 11.5,\r\n    \"longitude\": 5.6\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://vs614.dei.isep.ipp.pt/wm/api/warehouse/",
+							"protocol": "http",
+							"host": [
+								"vs614",
+								"dei",
+								"isep",
+								"ipp",
+								"pt"
+							],
+							"path": [
+								"wm",
+								"api",
+								"warehouse",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get the warehouse that was created",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is valid\", function () {\r",
+									"    pm.expect(responseJson).to.have.all.keys(\r",
+									"        \"id\",\r",
+									"        \"designation\",\r",
+									"        \"street\",\r",
+									"        \"postalCode\",\r",
+									"        \"location\",\r",
+									"        \"latitude\",\r",
+									"        \"longitude\",\r",
+									"        \"active\"\r",
+									"    );\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Id value is correct\", function () {\r",
+									"    pm.expect(responseJson.id).to.eql(\"188\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Designation value is correct\", function () {\r",
+									"    pm.expect(responseJson.designation).to.eql(\"WM03\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Street value is correct\", function () {\r",
+									"    pm.expect(responseJson.street).to.eql(\"Rua do Sergio Conceicao\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"PostalCode value is correct\", function () {\r",
+									"    pm.expect(responseJson.postalCode).to.eql(\"4713-145\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Location value is correct\", function () {\r",
+									"    pm.expect(responseJson.location).to.eql(\"Braga\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Latitude value is correct\", function () {\r",
+									"    pm.expect(responseJson.latitude).to.eql(11.5);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Longitude value is correct\", function () {\r",
+									"    pm.expect(responseJson.longitude).to.eql(5.6);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Active value is correct\", function () {\r",
+									"    pm.expect(responseJson.active).to.eql(true);\r",
+									"});\r",
+									"\r",
+									"pm.environment.set(\"warehouseId\", responseJson.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "file",
+							"file": {}
+						},
+						"url": {
+							"raw": "http://vs614.dei.isep.ipp.pt/wm/api/warehouse/{{warehouseId}}",
+							"protocol": "http",
+							"host": [
+								"vs614",
+								"dei",
+								"isep",
+								"ipp",
+								"pt"
+							],
+							"path": [
+								"wm",
+								"api",
+								"warehouse",
+								"{{warehouseId}}"
+							],
+							"query": [
+								{
+									"key": "departureWarehouse",
+									"value": "188",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit the warehouse",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is valid\", function () {\r",
+									"    pm.expect(responseJson).to.have.all.keys(\r",
+									"        \"id\",\r",
+									"        \"designation\",\r",
+									"        \"street\",\r",
+									"        \"postalCode\",\r",
+									"        \"location\",\r",
+									"        \"latitude\",\r",
+									"        \"longitude\",\r",
+									"        \"active\"\r",
+									"    );\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Id value is correct\", function () {\r",
+									"    pm.expect(responseJson.id).to.eql(\"188\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Designation value is correct\", function () {\r",
+									"    pm.expect(responseJson.designation).to.eql(\"WM04\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Street value is correct\", function () {\r",
+									"    pm.expect(responseJson.street).to.eql(\"Rua do Sergio Conceicao\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"PostalCode value is correct\", function () {\r",
+									"    pm.expect(responseJson.postalCode).to.eql(\"4713-145\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Location value is correct\", function () {\r",
+									"    pm.expect(responseJson.location).to.eql(\"Braga\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Latitude value is correct\", function () {\r",
+									"    pm.expect(responseJson.latitude).to.eql(11.5);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Longitude value is correct\", function () {\r",
+									"    pm.expect(responseJson.longitude).to.eql(5.6);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Active value is correct\", function () {\r",
+									"    pm.expect(responseJson.active).to.eql(true);\r",
+									"});\r",
+									"\r",
+									"pm.environment.set(\"warehouseId\", responseJson.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"{{warehouseId}}\",\r\n    \"designation\": \"WM04\",\r\n    \"street\": \"Rua do Sergio Conceicao\",\r\n    \"postalCode\": \"4713-145\",\r\n    \"location\": \"Braga\",\r\n    \"latitude\": 11.5,\r\n    \"longitude\": 5.6\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://vs614.dei.isep.ipp.pt/wm/api/warehouse/{{warehouseId}}",
+							"protocol": "http",
+							"host": [
+								"vs614",
+								"dei",
+								"isep",
+								"ipp",
+								"pt"
+							],
+							"path": [
+								"wm",
+								"api",
+								"warehouse",
+								"{{warehouseId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get the warehouse that was edited",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is valid\", function () {\r",
+									"    pm.expect(responseJson).to.have.all.keys(\r",
+									"        \"id\",\r",
+									"        \"designation\",\r",
+									"        \"street\",\r",
+									"        \"postalCode\",\r",
+									"        \"location\",\r",
+									"        \"latitude\",\r",
+									"        \"longitude\",\r",
+									"        \"active\"\r",
+									"    );\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Id value is correct\", function () {\r",
+									"    pm.expect(responseJson.id).to.eql(\"188\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Designation value is correct\", function () {\r",
+									"    pm.expect(responseJson.designation).to.eql(\"WM04\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Street value is correct\", function () {\r",
+									"    pm.expect(responseJson.street).to.eql(\"Rua do Sergio Conceicao\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"PostalCode value is correct\", function () {\r",
+									"    pm.expect(responseJson.postalCode).to.eql(\"4713-145\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Location value is correct\", function () {\r",
+									"    pm.expect(responseJson.location).to.eql(\"Braga\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Latitude value is correct\", function () {\r",
+									"    pm.expect(responseJson.latitude).to.eql(11.5);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Longitude value is correct\", function () {\r",
+									"    pm.expect(responseJson.longitude).to.eql(5.6);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Active value is correct\", function () {\r",
+									"    pm.expect(responseJson.active).to.eql(true);\r",
+									"});\r",
+									"\r",
+									"pm.environment.set(\"warehouseId\", responseJson.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "file",
+							"file": {}
+						},
+						"url": {
+							"raw": "http://vs614.dei.isep.ipp.pt/wm/api/warehouse/{{warehouseId}}",
+							"protocol": "http",
+							"host": [
+								"vs614",
+								"dei",
+								"isep",
+								"ipp",
+								"pt"
+							],
+							"path": [
+								"wm",
+								"api",
+								"warehouse",
+								"{{warehouseId}}"
+							],
+							"query": [
+								{
+									"key": "departureWarehouse",
+									"value": "188",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deactivate Warehouse",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is valid\", function () {\r",
+									"    pm.expect(responseJson).to.have.all.keys(\r",
+									"        \"id\",\r",
+									"        \"designation\",\r",
+									"        \"street\",\r",
+									"        \"postalCode\",\r",
+									"        \"location\",\r",
+									"        \"latitude\",\r",
+									"        \"longitude\",\r",
+									"        \"active\"\r",
+									"    );\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Id value is correct\", function () {\r",
+									"    pm.expect(responseJson.id).to.eql(\"188\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Designation value is correct\", function () {\r",
+									"    pm.expect(responseJson.designation).to.eql(\"WM04\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Street value is correct\", function () {\r",
+									"    pm.expect(responseJson.street).to.eql(\"Rua do Sergio Conceicao\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"PostalCode value is correct\", function () {\r",
+									"    pm.expect(responseJson.postalCode).to.eql(\"4713-145\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Location value is correct\", function () {\r",
+									"    pm.expect(responseJson.location).to.eql(\"Braga\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Latitude value is correct\", function () {\r",
+									"    pm.expect(responseJson.latitude).to.eql(11.5);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Longitude value is correct\", function () {\r",
+									"    pm.expect(responseJson.longitude).to.eql(5.6);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Active value is correct\", function () {\r",
+									"    pm.expect(responseJson.active).to.eql(false);\r",
+									"});\r",
+									"\r",
+									"pm.environment.set(\"warehouseId\", responseJson.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\"188\"",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://vs614.dei.isep.ipp.pt/wm/api/warehouse/deactivate",
+							"protocol": "http",
+							"host": [
+								"vs614",
+								"dei",
+								"isep",
+								"ipp",
+								"pt"
+							],
+							"path": [
+								"wm",
+								"api",
+								"warehouse",
+								"deactivate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Activate Warehouse",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is valid\", function () {\r",
+									"    pm.expect(responseJson).to.have.all.keys(\r",
+									"        \"id\",\r",
+									"        \"designation\",\r",
+									"        \"street\",\r",
+									"        \"postalCode\",\r",
+									"        \"location\",\r",
+									"        \"latitude\",\r",
+									"        \"longitude\",\r",
+									"        \"active\"\r",
+									"    );\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Id value is correct\", function () {\r",
+									"    pm.expect(responseJson.id).to.eql(\"188\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Designation value is correct\", function () {\r",
+									"    pm.expect(responseJson.designation).to.eql(\"WM04\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Street value is correct\", function () {\r",
+									"    pm.expect(responseJson.street).to.eql(\"Rua do Sergio Conceicao\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"PostalCode value is correct\", function () {\r",
+									"    pm.expect(responseJson.postalCode).to.eql(\"4713-145\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Location value is correct\", function () {\r",
+									"    pm.expect(responseJson.location).to.eql(\"Braga\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Latitude value is correct\", function () {\r",
+									"    pm.expect(responseJson.latitude).to.eql(11.5);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Longitude value is correct\", function () {\r",
+									"    pm.expect(responseJson.longitude).to.eql(5.6);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Active value is correct\", function () {\r",
+									"    pm.expect(responseJson.active).to.eql(true);\r",
+									"});\r",
+									"\r",
+									"pm.environment.set(\"warehouseId\", responseJson.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\"{{warehouseId}}\"",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://vs614.dei.isep.ipp.pt/wm/api/warehouse/activate",
+							"protocol": "http",
+							"host": [
+								"vs614",
+								"dei",
+								"isep",
+								"ipp",
+								"pt"
+							],
+							"path": [
+								"wm",
+								"api",
+								"warehouse",
+								"activate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get the warehouse that was activated",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is valid\", function () {\r",
+									"    pm.expect(responseJson).to.have.all.keys(\r",
+									"        \"id\",\r",
+									"        \"designation\",\r",
+									"        \"street\",\r",
+									"        \"postalCode\",\r",
+									"        \"location\",\r",
+									"        \"latitude\",\r",
+									"        \"longitude\",\r",
+									"        \"active\"\r",
+									"    );\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Id value is correct\", function () {\r",
+									"    pm.expect(responseJson.id).to.eql(\"188\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Designation value is correct\", function () {\r",
+									"    pm.expect(responseJson.designation).to.eql(\"WM04\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Street value is correct\", function () {\r",
+									"    pm.expect(responseJson.street).to.eql(\"Rua do Sergio Conceicao\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"PostalCode value is correct\", function () {\r",
+									"    pm.expect(responseJson.postalCode).to.eql(\"4713-145\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Location value is correct\", function () {\r",
+									"    pm.expect(responseJson.location).to.eql(\"Braga\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Latitude value is correct\", function () {\r",
+									"    pm.expect(responseJson.latitude).to.eql(11.5);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Longitude value is correct\", function () {\r",
+									"    pm.expect(responseJson.longitude).to.eql(5.6);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Active value is correct\", function () {\r",
+									"    pm.expect(responseJson.active).to.eql(true);\r",
+									"});\r",
+									"\r",
+									"pm.environment.set(\"warehouseId\", responseJson.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "file",
+							"file": {}
+						},
+						"url": {
+							"raw": "http://vs614.dei.isep.ipp.pt/wm/api/warehouse/{{warehouseId}}",
+							"protocol": "http",
+							"host": [
+								"vs614",
+								"dei",
+								"isep",
+								"ipp",
+								"pt"
+							],
+							"path": [
+								"wm",
+								"api",
+								"warehouse",
+								"{{warehouseId}}"
+							],
+							"query": [
+								{
+									"key": "departureWarehouse",
+									"value": "188",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deactivate Warehouse so I can be deleted",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is valid\", function () {\r",
+									"    pm.expect(responseJson).to.have.all.keys(\r",
+									"        \"id\",\r",
+									"        \"designation\",\r",
+									"        \"street\",\r",
+									"        \"postalCode\",\r",
+									"        \"location\",\r",
+									"        \"latitude\",\r",
+									"        \"longitude\",\r",
+									"        \"active\"\r",
+									"    );\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Id value is correct\", function () {\r",
+									"    pm.expect(responseJson.id).to.eql(\"188\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Designation value is correct\", function () {\r",
+									"    pm.expect(responseJson.designation).to.eql(\"WM04\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Street value is correct\", function () {\r",
+									"    pm.expect(responseJson.street).to.eql(\"Rua do Sergio Conceicao\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"PostalCode value is correct\", function () {\r",
+									"    pm.expect(responseJson.postalCode).to.eql(\"4713-145\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Location value is correct\", function () {\r",
+									"    pm.expect(responseJson.location).to.eql(\"Braga\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Latitude value is correct\", function () {\r",
+									"    pm.expect(responseJson.latitude).to.eql(11.5);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Longitude value is correct\", function () {\r",
+									"    pm.expect(responseJson.longitude).to.eql(5.6);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Active value is correct\", function () {\r",
+									"    pm.expect(responseJson.active).to.eql(false);\r",
+									"});\r",
+									"\r",
+									"pm.environment.set(\"warehouseId\", responseJson.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\"{{warehouseId}}\"",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://vs614.dei.isep.ipp.pt/wm/api/warehouse/deactivate",
+							"protocol": "http",
+							"host": [
+								"vs614",
+								"dei",
+								"isep",
+								"ipp",
+								"pt"
+							],
+							"path": [
+								"wm",
+								"api",
+								"warehouse",
+								"deactivate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Warehouse",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"188\",\r\n    \"designation\": \"WM03\",\r\n    \"street\": \"Rua do Sergio Conceicao\",\r\n    \"postalCode\": \"4713-145\",\r\n    \"location\": \"Braga\",\r\n    \"latitude\": 11.5,\r\n    \"longitude\": 5.6\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://vs614.dei.isep.ipp.pt/wm/api/warehouse/{{warehouseId}}/hard",
+							"protocol": "http",
+							"host": [
+								"vs614",
+								"dei",
+								"isep",
+								"ipp",
+								"pt"
+							],
+							"path": [
+								"wm",
+								"api",
+								"warehouse",
+								"{{warehouseId}}",
+								"hard"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Plan",
+			"item": [
+				{
+					"name": "Simulated Plan Trucks and Lists",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// Test that each warehouse ID in the plan exists in the system\r",
+									"pm.test(\"All warehouse IDs in plan exist in system\", function () {\r",
+									"  const plan = responseJson.plan;\r",
+									"  plan.forEach(warehouseIds => {\r",
+									"    warehouseIds.forEach(async warehouseId => {\r",
+									"      const response = await pm.sendRequest(`http://vs614.dei.isep.ipp.pt/wm/api/warehouse/${warehouseId.toString().padStart(3, \"0\")}`);\r",
+									"      pm.expect(response.code).to.be.oneOf([200, 201]);\r",
+									"    });\r",
+									"  });\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Number of trucks is equal or above 3\", function () {\r",
+									"  pm.expect(responseJson.numberOfTrucks).to.be.at.least(3);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Plan is not empty\", function () {\r",
+									"  pm.expect(responseJson.plan).to.be.an(\"array\").that.is.not.empty;\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:3000/api/plan/simulate/trucks",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"plan",
+								"simulate",
+								"trucks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get how much Time a Simulated Truck Plan takes",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is valid\", function () {\r",
+									"    pm.expect(responseJson).to.have.all.keys(\"Z\", \"H\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Z value is a number\", function () {\r",
+									"    pm.expect(responseJson.Z).to.be.a(\"number\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"All warehouse Ids in H are valid\", async function () {\r",
+									"  const responseJson = pm.response.json();\r",
+									"  for (const warehouseId of responseJson.H) {\r",
+									"    const response = await pm.sendRequest(`http://vs614.dei.isep.ipp.pt/wm/api/warehouse/${warehouseId.toString().padStart(3, \"0\")}`);\r",
+									"    pm.expect(response.code).to.be.oneOf([200, 201]);\r",
+									"  }\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"truck1\": [\r\n        1,\r\n        2,\r\n        3,\r\n        4\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/api/plan/simulate/generate/sublist",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"plan",
+								"simulate",
+								"generate",
+								"sublist"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Plan of Trucks and Lists calling prolog server",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// Test that each warehouse ID in the plan exists in the system\r",
+									"pm.test(\"All warehouse IDs in plan exist in system\", function () {\r",
+									"  const plan = responseJson.plan;\r",
+									"  plan.forEach(warehouseIds => {\r",
+									"    warehouseIds.forEach(async warehouseId => {\r",
+									"      const response = await pm.sendRequest(`http://vs614.dei.isep.ipp.pt/wm/api/warehouse/${warehouseId.toString().padStart(3, \"0\")}`);\r",
+									"      pm.expect(response.code).to.be.oneOf([200, 201]);\r",
+									"    });\r",
+									"  });\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Number of trucks is equal or above 3\", function () {\r",
+									"  pm.expect(responseJson.numberOfTrucks).to.be.at.least(3);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Plan is not empty\", function () {\r",
+									"  pm.expect(responseJson.plan).to.be.an(\"array\").that.is.not.empty;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Number of trucks in plan matches number of trucks\", async function () {\r",
+									"    const response = await pm.sendRequest(`http://vs614.dei.isep.ipp.pt/plan/trucks`);\r",
+									"    var responseJson1 = response.json();\r",
+									"    pm.expect(responseJson1.trucks.length).to.be.equal.to(responseJson.numberOfTrucks)\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:3000/api/plan/trucks",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"plan",
+								"trucks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get how much Time a Truck Plan takes",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is valid\", function () {\r",
+									"    pm.expect(responseJson).to.have.all.keys(\"Z\", \"H\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Z value is a number\", function () {\r",
+									"    pm.expect(responseJson.Z).to.be.a(\"number\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"All warehouse Ids in H are valid\", async function () {\r",
+									"  const responseJson = pm.response.json();\r",
+									"  for (const warehouseId of responseJson.H) {\r",
+									"    const response = await pm.sendRequest(`http://vs614.dei.isep.ipp.pt/wm/api/warehouse/${warehouseId.toString().padStart(3, \"0\")}`);\r",
+									"    pm.expect(response.code).to.be.oneOf([200, 201]);\r",
+									"  }\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Warehouses in the plan match with the response from prolog server\", async function () {\r",
+									"    const response = await pm.sendRequest(`http://vs614.dei.isep.ipp.pt/plan/trucks`);\r",
+									"    var responseJson1 = response.json();\r",
+									"    pm.expect(responseJson1.trucks).to.be.equal.to(responseJson.plan)\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ng\": 1,\r\n    \"dp\": 1,\r\n    \"p1\": 0,\r\n    \"p2\": 0,\r\n    \"truck1\": [\r\n        1,\r\n        2,\r\n        3,\r\n        4\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/api/plan/generate/sublist",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"plan",
+								"generate",
+								"sublist"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Deliveries",
+			"item": [
+				{
+					"name": "List all Deliveries",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is an array\", function () {\r",
+									"    pm.expect(responseJson).to.be.an(\"array\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Array is not empty\", function () {\r",
+									"    pm.expect(responseJson).to.have.length.above(0);\r",
+									"});\r",
+									"\r",
+									"responseJson.forEach(function (delivery) {\r",
+									"    pm.test(\"Delivery object has the correct structure\", function () {\r",
+									"        pm.expect(delivery).to.have.all.keys(\r",
+									"            \"id\",\r",
+									"            \"weight\",\r",
+									"            \"day\",\r",
+									"            \"month\",\r",
+									"            \"year\",\r",
+									"            \"placingTime\",\r",
+									"            \"removingTime\",\r",
+									"            \"xSize\",\r",
+									"            \"ySize\",\r",
+									"            \"zSize\",\r",
+									"            \"warehouseId\"\r",
+									"        );\r",
+									"    });\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "file",
+							"file": {}
+						},
+						"url": {
+							"raw": "http://vs614.dei.isep.ipp.pt/wm/api/deliveries/",
+							"protocol": "http",
+							"host": [
+								"vs614",
+								"dei",
+								"isep",
+								"ipp",
+								"pt"
+							],
+							"path": [
+								"wm",
+								"api",
+								"deliveries",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create the first Delivery",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is valid\", function () {\r",
+									"    pm.expect(responseJson).to.have.all.keys(\r",
+									"        \"id\",\r",
+									"        \"weight\",\r",
+									"        \"day\",\r",
+									"        \"month\",\r",
+									"        \"year\",\r",
+									"        \"placingTime\",\r",
+									"        \"removingTime\",\r",
+									"        \"xSize\",\r",
+									"        \"ySize\",\r",
+									"        \"zSize\",\r",
+									"        \"warehouseId\"\r",
+									"    );\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Id value is correct\", function () {\r",
+									"    pm.expect(responseJson.id).to.eql(\"D50\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Weight value is correct\", function () {\r",
+									"    pm.expect(responseJson.weight).to.eql(10);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Day value is correct\", function () {\r",
+									"    pm.expect(responseJson.day).to.eql(1);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Month value is correct\", function () {\r",
+									"    pm.expect(responseJson.month).to.eql(1);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Year value is correct\", function () {\r",
+									"    pm.expect(responseJson.year).to.eql(2023);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Placing Time value is correct\", function () {\r",
+									"    pm.expect(responseJson.placingTime).to.eql(10);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Removing Time value is correct\", function () {\r",
+									"    pm.expect(responseJson.removingTime).to.eql(10);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"xSize value is correct\", function () {\r",
+									"    pm.expect(responseJson.xSize).to.eql(10);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"ySize value is correct\", function () {\r",
+									"    pm.expect(responseJson.ySize).to.eql(10);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"zSize value is correct\", function () {\r",
+									"    pm.expect(responseJson.zSize).to.eql(10);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"warehouseId value is correct\", function () {\r",
+									"    pm.expect(responseJson.warehouseId).to.eql(\"001\");\r",
+									"});\r",
+									"\r",
+									"pm.environment.set(\"deliveryId\", responseJson.id);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"id\": \"D50\",\r\n        \"weight\": 10,\r\n        \"day\": 1,\r\n        \"month\": 1,\r\n        \"year\": 2023,\r\n        \"placingTime\": 10,\r\n        \"removingTime\": 10,\r\n        \"xSize\": 10,\r\n        \"ySize\": 10,\r\n        \"zSize\": 10,\r\n        \"warehouseId\": \"001\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://vs614.dei.isep.ipp.pt/wm/api/deliveries/",
+							"protocol": "http",
+							"host": [
+								"vs614",
+								"dei",
+								"isep",
+								"ipp",
+								"pt"
+							],
+							"path": [
+								"wm",
+								"api",
+								"deliveries",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit the Delivery",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is valid\", function () {\r",
+									"    pm.expect(responseJson).to.have.all.keys(\r",
+									"        \"id\",\r",
+									"        \"weight\",\r",
+									"        \"day\",\r",
+									"        \"month\",\r",
+									"        \"year\",\r",
+									"        \"placingTime\",\r",
+									"        \"removingTime\",\r",
+									"        \"xSize\",\r",
+									"        \"ySize\",\r",
+									"        \"zSize\",\r",
+									"        \"warehouseId\"\r",
+									"    );\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Id value is correct\", function () {\r",
+									"    pm.expect(responseJson.id).to.eql(\"D50\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Weight value is correct\", function () {\r",
+									"    pm.expect(responseJson.weight).to.eql(11);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Day value is correct\", function () {\r",
+									"    pm.expect(responseJson.day).to.eql(11);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Month value is correct\", function () {\r",
+									"    pm.expect(responseJson.month).to.eql(11);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Year value is correct\", function () {\r",
+									"    pm.expect(responseJson.year).to.eql(2023);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Placing Time value is correct\", function () {\r",
+									"    pm.expect(responseJson.placingTime).to.eql(11);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Removing Time value is correct\", function () {\r",
+									"    pm.expect(responseJson.removingTime).to.eql(11);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"xSize value is correct\", function () {\r",
+									"    pm.expect(responseJson.xSize).to.eql(11);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"ySize value is correct\", function () {\r",
+									"    pm.expect(responseJson.ySize).to.eql(11);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"zSize value is correct\", function () {\r",
+									"    pm.expect(responseJson.zSize).to.eql(11);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"warehouseId value is correct\", function () {\r",
+									"    pm.expect(responseJson.warehouseId).to.eql(\"002\");\r",
+									"});\r",
+									"\r",
+									"pm.environment.set(\"deliveryId\", responseJson.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"D50\",\r\n    \"weight\": 11,\r\n    \"day\": 11,\r\n    \"month\": 11,\r\n    \"year\": 2023,\r\n    \"placingTime\": 11,\r\n    \"removingTime\": 11,\r\n    \"xSize\": 11,\r\n    \"ySize\": 11,\r\n    \"zSize\": 11,\r\n    \"warehouseId\": \"002\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://vs614.dei.isep.ipp.pt/wm/api/deliveries/D50",
+							"protocol": "http",
+							"host": [
+								"vs614",
+								"dei",
+								"isep",
+								"ipp",
+								"pt"
+							],
+							"path": [
+								"wm",
+								"api",
+								"deliveries",
+								"D50"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get the Delivery that was edited",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is valid\", function () {\r",
+									"    pm.expect(responseJson).to.have.all.keys(\r",
+									"        \"id\",\r",
+									"        \"weight\",\r",
+									"        \"day\",\r",
+									"        \"month\",\r",
+									"        \"year\",\r",
+									"        \"placingTime\",\r",
+									"        \"removingTime\",\r",
+									"        \"xSize\",\r",
+									"        \"ySize\",\r",
+									"        \"zSize\",\r",
+									"        \"warehouseId\"\r",
+									"    );\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Id value is correct\", function () {\r",
+									"    pm.expect(responseJson.id).to.eql(\"D50\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Weight value is correct\", function () {\r",
+									"    pm.expect(responseJson.weight).to.eql(11);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Day value is correct\", function () {\r",
+									"    pm.expect(responseJson.day).to.eql(11);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Month value is correct\", function () {\r",
+									"    pm.expect(responseJson.month).to.eql(11);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Year value is correct\", function () {\r",
+									"    pm.expect(responseJson.year).to.eql(2023);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Placing Time value is correct\", function () {\r",
+									"    pm.expect(responseJson.placingTime).to.eql(11);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Removing Time value is correct\", function () {\r",
+									"    pm.expect(responseJson.removingTime).to.eql(11);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"xSize value is correct\", function () {\r",
+									"    pm.expect(responseJson.xSize).to.eql(11);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"ySize value is correct\", function () {\r",
+									"    pm.expect(responseJson.ySize).to.eql(11);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"zSize value is correct\", function () {\r",
+									"    pm.expect(responseJson.zSize).to.eql(11);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"warehouseId value is correct\", function () {\r",
+									"    pm.expect(responseJson.warehouseId).to.eql(\"002\");\r",
+									"});\r",
+									"\r",
+									"pm.environment.set(\"deliveryId\", responseJson.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "file",
+							"file": {}
+						},
+						"url": {
+							"raw": "http://vs614.dei.isep.ipp.pt/wm/api/deliveries/D50",
+							"protocol": "http",
+							"host": [
+								"vs614",
+								"dei",
+								"isep",
+								"ipp",
+								"pt"
+							],
+							"path": [
+								"wm",
+								"api",
+								"deliveries",
+								"D50"
+							],
+							"query": [
+								{
+									"key": "departureWarehouse",
+									"value": "188",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Delivery By Weight",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is valid\", function () {\r",
+									"    pm.expect(pm.response.json()).to.be.an(\"array\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Deliveries array has 1 element\", function () {\r",
+									"    pm.expect(pm.response.json()).to.have.lengthOf(1);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Delivery have correct weight value\", function () {\r",
+									"    pm.response.json().forEach(function (delivery) {\r",
+									"        pm.expect(delivery.weight).to.eql(11);\r",
+									"    });\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://vs614.dei.isep.ipp.pt/wm/api/deliveries/weight/11",
+							"protocol": "https",
+							"host": [
+								"vs614",
+								"dei",
+								"isep",
+								"ipp",
+								"pt"
+							],
+							"path": [
+								"wm",
+								"api",
+								"deliveries",
+								"weight",
+								"11"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

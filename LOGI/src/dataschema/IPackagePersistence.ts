@@ -1,0 +1,9 @@
+export interface IPackagePersistence {
+  packageId: string;
+  xCoordinate: number;
+  yCoordinate: number;
+  zCoordinate: number;
+  shipmentId: string;
+  deliveryId: string;
+  pathId: string;
+}

@@ -1,0 +1,23 @@
+<header-add [customTitle]="entity"
+            customDescription="Here are listed all the {{entity}}s"
+            addWord="{{entity}}"
+            color="success">
+</header-add>
+
+<app-messages></app-messages>
+
+<table-component color="success"
+                 object="{{entity.toLowerCase()}}"
+                 [searchFunction]="search"
+                 [callbackFunction]="changeActivate"
+                 [listOfObjects]="warehouses"
+                 [parameters]=labels>
+</table-component>
+
+<add-dialog customTitle="{{entity}}"
+            color="success"
+            mainPageTitle="{{entity}}"
+            [callbackFunction]="add"
+            [parameters]=labels.slice(0,labels.length-1)
+            [properties]=props
+></add-dialog>

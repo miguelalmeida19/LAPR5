@@ -1,0 +1,52 @@
+<add-dialog customTitle="{{entity}}"
+            color="danger"
+            mainPageTitle="{{entity}}"
+            [callbackFunction]="add"
+            [parameters]=labels
+            [properties]=props
+></add-dialog>
+
+<header-add [customTitle]="entity"
+            customDescription="Here are listed all the Deliveries between 2 different warehouses."
+            addWord="Delivery"
+            color="{{color}}">
+</header-add>
+
+<app-messages></app-messages>
+
+<table-component color="{{color}}"
+                 object="{{entity.toLowerCase()}}"
+                 [searchFunction]="search"
+                 [listOfObjects]="deliveries"
+                 [parameters]=labels>
+
+  <filter-component slot="start" [callbackFunction]="searchWeight"
+                    class="col-4"
+                    filter="{{labels[1]}}"
+                    icon="archive"
+                    [numberOfParameter]=1
+                    [listOfObjects]="deliveries"
+                    (outputList) ="GetChildData($event)"
+                    color="{{color}}">
+  </filter-component>
+
+  <filter-component slot="start" [callbackFunction]="searchWarehouse"
+                    class="col-4"
+                    filter="{{labels[10]}}"
+                    icon="warehouse"
+                    [numberOfParameter]=10
+                    [listOfObjects]="deliveries"
+                    (outputList) ="GetChildData($event)"
+                    color="{{color}}">
+  </filter-component>
+
+
+</table-component>
+
+<add-dialog customTitle="{{entity}}"
+            color="{{color}}"
+            mainPageTitle="Deliveries"
+            [callbackFunction]="add"
+            [parameters]=labels.slice(0,labels.length)
+            [properties]=props.slice(0,props.length)
+></add-dialog>

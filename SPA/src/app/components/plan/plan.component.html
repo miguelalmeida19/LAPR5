@@ -1,0 +1,68 @@
+<header-add [customTitle]="entity"
+            customDescription="Here you can view the most efficient plan of deliveries for the existent on the system.">
+</header-add>
+
+<div class="container pt-4 pb-4 d-flex flex-column">
+  <span class="fs-1 fw-bold"> Route planning of the entire fleet</span>
+  <p class="text-secondary">The metropolitan region of Porto is divided into 3 delivery regions.</p>
+  <div class="row">
+    <button (click)="loadTrucks()" class="col-md-5 me-3 btn btn-outline-info fw-bold text-center rounded-pill p-4 fs-2">Load Plan</button>
+    <button (click)="simulatePlan()" class="col-md-5 btn btn-outline-secondary fw-bold text-center rounded-pill p-4 fs-2">Simulate Plan</button>
+  </div>
+  <div *ngIf="number_of_trucks">
+    <div class="row" id="trucks">
+      <div *ngFor="let item of [].constructor( number_of_trucks ); let i = index" class="col truck"
+           [style.animation-delay]="i * 0.2 + 's'"
+           [ngClass]="{'truck-overlap': i > 0}" [style.zIndex]="number_of_trucks - i">
+        <img src="assets/truck_plan.png" class="img-fluid">
+      </div>
+    </div>
+    <span class="fs-3 fw-bold">There will be necessary <span class="text-info fs-2">{{number_of_trucks}} Trucks</span> to complete all the deliveries.</span>
+    <div class="p-4 bg-info mt-4 mb-4 rounded-5">
+      <div class="m-3 row">
+        <div class="bg-white p-4 rounded-5 col me-2 d-flex flex-column text-center">
+          <span class="fw-bold fs-3">Paths</span>
+          <button (click)="setSelectedPath(path)" [ngClass]="{'active': path == selectedPath}"
+                  *ngFor="let path of currentPlan.plan" class="mt-2 btn btn-outline-info rounded-pill p-3"><span
+            class="fw-bold fs-5">{{path}}</span></button>
+        </div>
+        <div class="bg-white rounded-5 col d-flex align-items-center justify-content-center">
+          <canvas class="container-fluid" #myCanvas></canvas>
+        </div>
+      </div>
+    </div>
+    <ng-template [ngIf]="(fleetPlan.plan.length && currentPathPage<fleetPlan.plan.length) && !isSimulated">
+      <span class="fs-3 fw-bold">To find out the total time to complete all deliveries, the following parameters must be filled in.</span>
+      <div class="p-4 d-flex justify-content-center flex-column align-items-center">
+        <div class="bg-info text-white p-4 rounded-5 col-md-6 mb-2 d-flex justify-content-center align-items-center">
+          <span class="fs-3 fw-bold">Path: {{fleetPlan.plan[currentPathPage]}}</span>
+        </div>
+        <div class="bg-dark text-white p-4 rounded-5 col-md-6 mb-2 d-flex justify-content-center align-items-center">
+          <label class="form-label">Number of generations</label>
+          <input #numberOfGenerations min="0" type="number" class="form-control rounded-pill" required>
+        </div>
+        <div class="bg-dark text-white p-4 rounded-5 col-md-6 mb-2 d-flex justify-content-center align-items-center">
+          <label class="form-label">Population dimension</label>
+          <input #populationDimension min="0" type="number" class="form-control rounded-pill" required>
+        </div>
+        <div class="bg-dark text-white p-4 rounded-5 col-md-6 mb-2 d-flex justify-content-center align-items-center">
+          <label class="form-label">Crossing probability</label>
+          <input #crossingProbability min="0" type="number" class="form-control rounded-pill" required>
+        </div>
+        <div class="bg-dark text-white p-4 rounded-5 col-md-6 mb-2 d-flex justify-content-center align-items-center">
+          <label class="form-label">Mutation probability</label>
+          <input #mutationProbability min="0" type="number" class="form-control rounded-pill" required>
+        </div>
+        <div class="d-flex flex-row mt-4">
+          <button [disabled]="currentPathPage>=fleetPlan.numberOfTrucks" class="btn btn-info rounded-circle"
+                  (click)="nextPath(numberOfGenerations, populationDimension, crossingProbability, mutationProbability)">
+            <i class="fa fa-solid fa-arrow-right fa-3x text-center"></i></button>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template [ngIf]="currentPathPage>=fleetPlan.plan.length || isSimulated" class="d-flex flex-column">
+      <span class="fs-3 fw-bold">To complete all the deliveries it will take <span class="text-info">{{maxZRecord  | number:'1.0-2'}}</span> minutes.</span>
+      <span class="fs-3 fw-bold">The most time-consuming path is the <span class="text-info">{{longestPath}}</span>, departing and returning to <span class="text-info">Matosinhos</span>.</span>
+    </ng-template>
+  </div>
+</div>

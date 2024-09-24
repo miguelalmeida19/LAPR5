@@ -1,0 +1,49 @@
+<header-add [customTitle]="entity"
+            customDescription="Here are listed all the {{entity}}s."
+            addWord="{{entity}}s"
+            color="{{color}}">
+</header-add>
+
+<app-messages></app-messages>
+
+<table-component color="{{color}}"
+                 object="{{entity.toLowerCase()}}"
+                 [searchFunction]="search"
+                 [listOfObjects]="packages"
+                 [parameters]=labels>
+
+  <nav slot="end" class="mt-3">
+    <ul class="pagination">
+      <div class="d-flex align-items-center">
+        <span class="mr-3" >Show</span>
+
+        <select #option (change)="paginate(+option.value,1)" [ngClass]="'btn-outline-' + color" class="mr-4 form-control bg-white text-center selectpicker rounded-pill fw-bold pe-4 ps-4" data-live-search="true">
+          <option class="fw-bold" data-tokens="none">5</option>
+          <option class="fw-bold" data-tokens="none">10</option>
+          <option class="fw-bold" data-tokens="none">15</option>
+          <option class="fw-bold" data-tokens="none">20</option>
+        </select>
+      </div>
+      <li [ngClass]="{'disabled': currentPage==0}" (click)="currentPage>0 ? anotherPage(+option.value, this.currentPage) : false" class="page-item">
+        <a [ngClass]="{'text-secondary': currentPage>0}" class="page-link rounded-pill" tabindex="{{currentPage+1>pages ? -1 : 0}}">Previous</a>
+      </li>
+      <li class="btn page-item" *ngFor="let item of [].constructor(pages);
+      let i = index"><a [ngClass]="{'text-white bg-primary border-primary': currentPage==i,
+      'text-primary': currentPage!=i}" class="page-link rounded-circle" (click)="anotherPage(+option.value, i+1)">{{i+1}}</a>
+      </li>
+      <li [ngClass]="{'disabled': currentPage+1>=pages}" (click)="currentPage+1<pages ? anotherPage(+option.value, this.currentPage+2) : false" class="page-item">
+        <a [ngClass]="{'text-primary': currentPage+1<pages}" class="page-link rounded-pill" tabindex="{{currentPage==pages ? -1 : 0}}">Next</a>
+      </li>
+    </ul>
+  </nav>
+
+
+</table-component>
+
+<add-dialog customTitle="{{entity}}"
+            color="{{color}}"
+            mainPageTitle="{{entity}}s"
+            [callbackFunction]="add"
+            [parameters]=labels.slice(0,labels.length)
+            [properties]=props
+></add-dialog>

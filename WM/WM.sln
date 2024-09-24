@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tests", "tests\tests.csproj", "{06FE99EB-5AA8-4EE6-870A-31FD64DAE71B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EletricGo", "g52\EletricGo.csproj", "{6AEB5F21-89D0-4ADD-BA79-C482425F3293}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{06FE99EB-5AA8-4EE6-870A-31FD64DAE71B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06FE99EB-5AA8-4EE6-870A-31FD64DAE71B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06FE99EB-5AA8-4EE6-870A-31FD64DAE71B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06FE99EB-5AA8-4EE6-870A-31FD64DAE71B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AEB5F21-89D0-4ADD-BA79-C482425F3293}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AEB5F21-89D0-4ADD-BA79-C482425F3293}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AEB5F21-89D0-4ADD-BA79-C482425F3293}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AEB5F21-89D0-4ADD-BA79-C482425F3293}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

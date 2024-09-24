@@ -1,0 +1,19 @@
+<div (focusin)="changeTitle()" (focusout)="recoverTitle()" class="modal fade" id="{{modalId}}" tabindex="-1"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content rounded-5 p-5">
+      <div class="modal-header">
+        <h5 class="modal-title fs-2 fw-bold" id="exampleModalLabel">Cancel account?</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body fs-4">
+        <p>Are you sure you want to <span class="fw-bold text-danger">cancel this account</span>?</p>
+        <p>This account will be anonymized and will never be able to access EletricGo again.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary rounded-pill p-2 fw-bold" data-bs-dismiss="modal">Go Back</button>
+        <button (click)="onSubmit()" type="button" data-bs-dismiss="modal" class="submit btn btn-danger rounded-pill p-2 fw-bold">Cancel Account</button>
+      </div>
+    </div>
+  </div>
+</div>

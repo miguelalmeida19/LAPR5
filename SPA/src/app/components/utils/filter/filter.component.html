@@ -1,0 +1,7 @@
+<div class="d-flex align-items-center justify-content-center">
+  <select #option (change)="search(option.value)" [ngClass]="'btn-outline-' + color" class="form-control bg-white text-center selectpicker rounded-pill fw-bold pe-2 ps-2" data-live-search="true">
+    <option data-tokens="none">Filter by {{filter}}</option>
+    <option class="fw-bold p-2" *ngFor="let obj of listOfObjects" data-tokens="none">{{(obj | keyvalue : unsorted)[numberOfParameter].value}}</option>
+  </select>
+  <i class="p-2 d-flex align-items-center justify-content-center rounded-circle fa fa-solid text-center" [ngClass]="'text-' + color + ' fa-' + icon"></i>
+</div>

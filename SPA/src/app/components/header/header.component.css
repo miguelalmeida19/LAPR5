@@ -1,0 +1,6 @@
+#cancel:hover{
+  font-weight: bold;
+  transition: all .2s;
+  color: white;
+  background-color: #db3545;
+}

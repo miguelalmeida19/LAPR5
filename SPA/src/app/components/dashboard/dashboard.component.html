@@ -1,0 +1,139 @@
+<!-- Number of entities -->
+<div class="bg-dark pt-5">
+  <div class="container text-white d-flex flex-column">
+    <span *ngIf="hour>=6 && hour<12" class="fs-1 fw-bold">Good morning, {{userInfo?.info?.name}}</span>
+    <span *ngIf="hour>=12 && hour<18" class="fs-1 fw-bold">Good afternoon, {{userInfo?.info?.name}}</span>
+    <span *ngIf="hour>=18 || (hour>=0 && hour<6)" class="fs-1 fw-bold">Good night, {{userInfo?.info?.name}}</span>
+    <span id="welcome-secondary-message" class="text-secondary">
+            You can follow all new data here
+            </span>
+  </div>
+  <div class="container mt-4">
+    <div class="row pb-5">
+      <div *ngIf="role=='fleet manager' || role == 'free'" class="col-md-3 mb-3">
+        <div class="d-flex">
+          <i style="background-color: rgba(62,62,62,0.81); width: 4rem;height: 4rem"
+             class="p-4 d-flex align-items-center justify-content-center rounded-circle fa fa-solid fa-truck text-center text-primary fa-2x"></i>
+          <div class="ms-2 d-flex flex-column justify-content-center">
+            <span id="number-of-trucks" class="fw-bold text-white fs-4">{{trucks.length}}</span>
+            <span class="text-secondary">
+                                Trucks
+                            </span>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="role=='warehouse manager' || role == 'free'" class="col-md-3 mb-3">
+        <div class="d-flex">
+          <i style="background-color: rgba(62,62,62,0.81); width: 4rem;height: 4rem"
+             class="p-4 d-flex align-items-center justify-content-center rounded-circle fa fa-solid fa-warehouse text-center text-success fa-2x"></i>
+          <div class="ms-2 d-flex flex-column justify-content-center">
+            <span id="number-of-warehouses" class="fw-bold text-white fs-4">{{warehouses.length}}</span>
+            <span class="text-secondary">
+                                Warehouses
+                            </span>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="role=='logistics manager' || role == 'free'" class="col-md-3 mb-3">
+        <div class="d-flex">
+          <i style="background-color: rgba(62,62,62,0.81); width: 4rem;height: 4rem"
+             class="p-4 d-flex align-items-center justify-content-center rounded-circle fa fa-solid fa-route text-center text-warning fa-2x"></i>
+          <div class="ms-2 d-flex flex-column justify-content-center">
+            <span id="number-of-paths" class="fw-bold text-white fs-4">{{paths.length}}</span>
+            <span class="text-secondary">
+                                Paths
+                            </span>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="role=='logistics manager' || role == 'free'" class="col-md-3 mb-3">
+        <div class="d-flex">
+          <i style="background-color: rgba(62,62,62,0.81); width: 4rem;height: 4rem"
+             class="p-4 d-flex align-items-center justify-content-center rounded-circle fa fa-solid fa-paper-plane text-center text-pink fa-2x"></i>
+          <div class="ms-2 d-flex flex-column justify-content-center">
+            <span id="number-of-shipments" class="fw-bold text-white fs-4">{{shipments.length}}</span>
+            <span class="text-secondary">
+                                Shipments
+                            </span>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="role=='logistics manager' || role == 'free'" class="col-md-3 mb-3">
+        <div class="d-flex">
+          <i style="background-color: rgba(62,62,62,0.81); width: 4rem;height: 4rem"
+             class="p-4 d-flex align-items-center justify-content-center rounded-circle fa fa-solid fa-archive text-center text-secondary fa-2x"></i>
+          <div class="ms-2 d-flex flex-column justify-content-center">
+            <span id="number-of-packages" class="fw-bold text-white fs-4">{{packages.length}}</span>
+            <span class="text-secondary">
+                                Packages
+                            </span>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="role=='warehouse manager' || role == 'free'" class="col-md-3 mb-3">
+        <div class="d-flex">
+          <i style="background-color: rgba(62,62,62,0.81); width: 4rem;height: 4rem"
+             class="p-4 d-flex align-items-center justify-content-center rounded-circle fa fa-solid fa-truck-ramp-box text-center text-danger fa-2x"></i>
+          <div class="ms-2 d-flex flex-column justify-content-center">
+            <span id="number-of-deliveries" class="fw-bold text-white fs-4">{{deliveries.length}}</span>
+            <span class="text-secondary">
+                                Deliveries
+                            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="p-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <div class="card border-0" style="border-radius: 2rem;">
+          <div id="someTrucks" class="d-flex align-items-start flex-column card-body p-4">
+            <h5 class="card-title">Some of our Trucks</h5>
+            <div class="col-12 mb-3">
+              <div class="bg-secondary p-3 mt-3 rounded-pill">
+                <div class="text-white rounded-pill bg-secondary">
+                  <span class="fw-bold">Truck Id</span>
+                </div>
+              </div>
+              <div *ngFor="let truck of trucks.slice(0,3)" class="some-trucks rounded-pill p-2 mt-2 text-dark"
+                   style="background-color: #ededed"><span
+                class="fw-bold">{{truck.truckId}}</span></div>
+            </div>
+            <div *ngIf="role=='fleet manager' || role == 'free'" class="col-12 mb-3 mt-2">
+              <a class="see-more p-3 btn bg-primary rounded-pill" href="/trucks" style="width: 10rem"><span
+                class="fw-bold">See more</span></a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-md-6">
+        <div class="card border-0" style="border-radius: 2rem;">
+          <img class="card-img img-fluid" src="assets/Truck.png" alt="Card image"
+               style="border-radius: 2rem;">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="p-5 bg-dark">
+  <div class="container">
+    <div class="column">
+      <div class="col-md-8 d-flex flex-column">
+                    <span class="mb-3 fs-1 fw-bold text-white">
+                        Where are we?
+                    </span>
+        <span class="text-white fs-4 p-3 rounded">
+                        Currently, <span class="fw-bold">EletricGo</span> has its truck and merchandise headquarters in the Matosinhos warehouse, with warehouses spread throughout the Porto district.
+                    </span>
+      </div>
+      <div class="col-md-5 d-flex align-items-center justify-content-center mt-3 p-3 rounded">
+        <img class="img-fluid" src="assets/Delivery%20Network.png"
+             style="border-radius: 2rem; max-width: 100%">
+      </div>
+    </div>
+  </div>
+</div>

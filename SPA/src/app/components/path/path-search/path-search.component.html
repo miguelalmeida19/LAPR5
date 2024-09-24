@@ -1,0 +1,4 @@
+<div class="cdb-form col-4 d-flex align-items-center justify-content-center">
+  <input #searchBox id="search-box" (input)="search(searchBox.value)" autocomplete="off" class="form-control mb-2 rounded-pill text-center fw-bold" type="text" placeholder="Search by Id">
+  <i class="p-2 d-flex align-items-center justify-content-center rounded-circle fa fa-solid fa-search text-center" [ngClass]="'text-' + color"></i>
+</div>

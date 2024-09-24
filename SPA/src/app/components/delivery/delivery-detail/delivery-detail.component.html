@@ -1,0 +1,42 @@
+<details-component *ngIf="delivery" customTitle="Delivery from ID {{delivery.id | uppercase}} to be delivered at Warehouse {{delivery.warehouseId | uppercase}} Details">
+  <input-form id="deliveryId" variable="{{props[0]}}" label="{{labels[0]}}" tip="{{labels[0]}} is not editable!">
+    <input readonly [(ngModel)]="delivery.id" placeholder="{{delivery.id.toString()}}" class="form-control rounded-pill">
+  </input-form>
+  <input-form variable="{{props[1]}}" label="{{labels[1]}}" tip="{{labels[1]}} Must be positive and under 1000kg!">
+    <input [(ngModel)]="delivery.weight" placeholder="{{delivery.weight.toString()}}" class="form-control rounded-pill">
+  </input-form>
+  <!-- TODO update form due date input format-->
+  <input-form variable="{{props[2]}}" label="{{labels[2]}}" tip="{{labels[2]}} valued between 1 and 31">
+    <input [(ngModel)]="delivery.day" placeholder="{{delivery.day.toString()}}" class="form-control rounded-pill">
+  </input-form>
+  <input-form variable="{{props[3]}}" label="{{labels[3]}}" tip="{{labels[3]}} valued between 1 and 12">
+    <input [(ngModel)]="delivery.month" placeholder="{{delivery.month.toString()}}" class="form-control rounded-pill">
+  </input-form>
+  <input-form variable="{{props[4]}}" label="{{labels[4]}}" tip="{{labels[4]}} valued between 2022 and 2025">
+    <input [(ngModel)]="delivery.year" placeholder="{{delivery.year.toString()}}" class="form-control rounded-pill">
+  </input-form>
+  <!-- -->
+  <input-form variable="{{props[5]}}" label="{{labels[5]}}" tip="{{labels[5]}} valued in minutes beneath an hour!">
+    <input [(ngModel)]="delivery.placingTime" placeholder="{{delivery.placingTime.toString()}}" class="form-control rounded-pill">
+  </input-form>
+  <input-form variable="{{props[6]}}" label="{{labels[6]}}" tip="{{labels[6]}} valued in minutes beneath an hour!">
+    <input [(ngModel)]="delivery.removingTime" placeholder="{{delivery.removingTime.toString()}}" class="form-control rounded-pill">
+  </input-form>
+  <input-form variable="{{props[7]}}" label="{{labels[7]}}" tip="{{labels[7]}} coordinates valued between 1cm and 10m">
+    <input [(ngModel)]="delivery.xSize" placeholder="{{delivery.xSize.toString()}}" class="form-control rounded-pill">
+  </input-form>
+  <input-form variable="{{props[8]}}" label="{{labels[8]}}" tip="{{labels[8]}} coordinates valued between 1cm and 10m">
+    <input [(ngModel)]="delivery.ySize" placeholder="{{delivery.ySize.toString()}}" class="form-control rounded-pill">
+  </input-form>
+  <input-form variable="{{props[9]}}" label="{{labels[9]}}" tip="{{labels[9]}} coordinates valued between 1cm and 10m">
+    <input [(ngModel)]="delivery.zSize" placeholder="{{delivery.zSize.toString()}}" class="form-control rounded-pill">
+  </input-form>
+  <input-form variable="{{props[10]}}" label="{{props[10]}}" tip="{{props[9]}} is not editable!">
+    <input [(ngModel)]="delivery.warehouseId" placeholder="{{delivery.warehouseId.toString()}}" class="form-control rounded-pill">
+  </input-form>
+  <div class="d-flex">
+    <button type="button" class="me-3 btn btn-secondary rounded-pill p-2 fw-bold" (click)="goBack()">Go Back</button>
+    <button type="button" class="btn btn-outline-warning rounded-pill p-2 fw-bold" (click)="save()">Save changes
+    </button>
+  </div>
+</details-component>

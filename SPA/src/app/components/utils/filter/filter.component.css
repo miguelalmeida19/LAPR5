@@ -1,0 +1,24 @@
+.form-control {
+  color: black;
+}
+
+.form-control:focus {
+  color: black;
+  border: 0;
+}
+
+.form-control:hover {
+  color: black;
+}
+
+.button:not( :hover ) {
+  border-width: 0;
+  color: black;
+  background-color: #ededed;
+  transition: 0.3s;
+}
+
+.button:hover{
+  border-width: 0;
+  background-color: white;
+}

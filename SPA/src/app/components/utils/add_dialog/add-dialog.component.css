@@ -1,0 +1,16 @@
+#exampleModal{
+  backdrop-filter: blur(5px);
+}
+
+.bg-orange {
+  background-color: #d86f00;
+}
+
+.text-orange {
+  color: #d86f00;
+}
+
+.btn-orange {
+  background-color: #d86f00;
+  color: #ffffff;
+}

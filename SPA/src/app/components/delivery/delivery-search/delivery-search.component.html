@@ -1,0 +1,21 @@
+<div id="search-component">
+  <label for="search-box">Delivery Search</label>
+  <input #searchBox id="search-box" (input)="search(searchBox.value)" />
+
+  <ul class="search-result">
+    <li *ngFor="let delivery of deliveries$ | async" >
+      <a routerLink="/deliveryDetail/{{delivery.id}}">
+        {{delivery.weight}}
+        {{delivery.day}}
+        {{delivery.month}}
+        {{delivery.year}}
+        {{delivery.placingTime}}
+        {{delivery.removingTime}}
+        {{delivery.xSize}}
+        {{delivery.ySize}}
+        {{delivery.zSize}}
+        {{delivery.warehouseId}}
+      </a>
+    </li>
+  </ul>
+</div>

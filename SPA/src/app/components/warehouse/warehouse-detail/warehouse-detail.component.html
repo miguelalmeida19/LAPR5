@@ -1,0 +1,28 @@
+<details-component *ngIf="warehouse" customTitle="Warehouse from ID {{warehouse.id | uppercase}}Details">
+  <input-form id="warehouseId" variable="{{props[0]}}" label="{{labels[0]}}" tip="{{labels[0]}} is not editable!">
+    <input readonly [(ngModel)]="warehouse.id" placeholder="{{warehouse.id.toString()}}" class="form-control rounded-pill">
+  </input-form>
+  <input-form variable="{{props[1]}}" label="{{labels[1]}}" tip="{{labels[1]}} can´t be empty!">
+    <input [(ngModel)]="warehouse.designation" placeholder="{{warehouse.designation.toString()}}" class="form-control rounded-pill">
+  </input-form>
+  <input-form variable="{{props[2]}}" label="{{labels[2]}}" tip="{{labels[2]}} can´t be empty!">
+    <input [(ngModel)]="warehouse.street" placeholder="{{warehouse.street.toString()}}" class="form-control rounded-pill">
+  </input-form>
+  <input-form variable="{{props[3]}}" label="{{labels[3]}}" tip="{{labels[3]}} can´t be empty!">
+    <input [(ngModel)]="warehouse.postalCode" placeholder="{{warehouse.postalCode.toString()}}" class="form-control rounded-pill">
+  </input-form>
+  <input-form variable="{{props[4]}}" label="{{labels[4]}}" tip="{{labels[4]}} can´t be empty!">
+    <input [(ngModel)]="warehouse.location " placeholder="{{warehouse.location.toString()}}" class="form-control rounded-pill">
+  </input-form>
+  <input-form variable="{{props[5]}}" label="{{labels[5]}}" tip="{{labels[5]}} must be between -90 and 90!">
+    <input [(ngModel)]="warehouse.latitude" placeholder="{{warehouse.latitude.toString()}}" class="form-control rounded-pill">
+  </input-form>
+  <input-form variable="{{props[6]}}" label="{{labels[6]}}" tip="{{labels[6]}} must be between -180 and 180!">
+    <input [(ngModel)]="warehouse.longitude" placeholder="{{warehouse.longitude.toString()}}" class="form-control rounded-pill">
+  </input-form>
+  <div class="d-flex">
+    <button type="button" class="me-3 btn btn-secondary rounded-pill p-2 fw-bold" (click)="goBack()">Go Back</button>
+    <button type="button" class="btn btn-outline-warning rounded-pill p-2 fw-bold" (click)="save()">Save changes
+    </button>
+  </div>
+</details-component>
